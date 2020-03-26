@@ -10,7 +10,9 @@ import me.A5H73Y.parkour.player.ParkourSession;
 import me.A5H73Y.parkour.player.PlayerMethods;
 import me.A5H73Y.parkour.utilities.Utils;
 import me.A5H73Y.parkour.utilities.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -47,25 +49,25 @@ public class PlayerInteractListener implements Listener {
             return;
         }
 
-        if (Utils.getMaterialInPlayersHand(player) == Parkour.getSettings().getLastCheckpointTool()) {
+        if (Utils.areSimilar(Utils.getItemStackInPlayersHand(player), (Parkour.getSettings().getLastCheckpointTool()))) {
             if (Utils.delayPlayerEvent(player, 1)) {
                 event.setCancelled(true);
                 PlayerMethods.playerDie(player);
             }
 
-        } else if (Utils.getMaterialInPlayersHand(player) == Parkour.getSettings().getHideallTool()) {
+        } else if (Utils.areSimilar(Utils.getItemStackInPlayersHand(player), (Parkour.getSettings().getHideallTool()))) {
             if (Utils.delayPlayerEvent(player, 1)) {
                 event.setCancelled(true);
                 Utils.toggleVisibility(player);
             }
 
-        } else if (Utils.getMaterialInPlayersHand(player) == Parkour.getSettings().getLeaveTool()) {
+        } else if (Utils.areSimilar(Utils.getItemStackInPlayersHand(player), (Parkour.getSettings().getLeaveTool()))) {
             if (Utils.delayPlayerEvent(player, 1)) {
                 event.setCancelled(true);
                 PlayerMethods.playerLeave(player);
             }
 
-        } else if (Utils.getMaterialInPlayersHand(player) == Parkour.getSettings().getRestartTool()) {
+        } else if (Utils.areSimilar(Utils.getItemStackInPlayersHand(player), (Parkour.getSettings().getRestartTool()))) {
             if (Utils.delayPlayerEvent(player, 1)) {
                 event.setCancelled(true);
                 PlayerMethods.restartCourse(player);
@@ -130,6 +132,10 @@ public class PlayerInteractListener implements Listener {
 
         if (Parkour.getPlugin().getConfig().getBoolean("OnCourse.PreventPlateStick")) {
             event.setCancelled(true);
+            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_STONE_PRESSURE_PLATE_CLICK_ON, 1.0f, 1.0f);
+            Bukkit.getScheduler().runTaskLater(Parkour.getPlugin(), () -> {
+                event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF, 1.0f, 1.0f);
+            }, 10);
         }
 
         ParkourSession session = PlayerMethods.getParkourSession(event.getPlayer().getName());

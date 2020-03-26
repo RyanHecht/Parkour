@@ -6,6 +6,9 @@ import me.A5H73Y.parkour.Parkour;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * Quickly access Parkour Settings without knowing the property name
@@ -99,36 +102,43 @@ public class Settings {
 
     /* Materials */
 
-    public Material getLastCheckpointTool() {
-        Material lastCheckpointTool = Utils.lookupMaterial(getConfig().getString("OnJoin.Item.LastCheckpoint.Material"));
-        return lastCheckpointTool == Material.AIR ? null : lastCheckpointTool;
+    public ItemStack getTool(String path) {
+        Material tool = Utils.lookupMaterial(getConfig().getString(path + ".Material"));
+        int damage = getConfig().contains(path + ".Damage") ? getConfig().getInt(path + ".Damage") : 0;
+        ItemStack item = new ItemStack(tool, 1, (short) damage);
+        ItemMeta meta = item.getItemMeta();
+        meta.setUnbreakable(true);
+        meta.hasItemFlag(ItemFlag.HIDE_UNBREAKABLE);
+        item.setItemMeta(meta);
+        return tool == Material.AIR ? null : item;
+    }
+
+    public ItemStack getLastCheckpointTool() {
+        return getTool("OnJoin.Item.LastCheckpoint");
     }
 
     public int getLastCheckPointToolSlot() {
         return Parkour.getPlugin().getConfig().getInt("OnJoin.Item.LastCheckpoint.Slot", 0);
     }
 
-    public Material getHideallTool() {
-        Material hideallTool = Utils.lookupMaterial(getConfig().getString("OnJoin.Item.HideAll.Material"));
-        return hideallTool == Material.AIR ? null : hideallTool;
+    public ItemStack getHideallTool() {
+        return getTool("OnJoin.Item.HideAll");
     }
 
     public int getHideallToolSlot() {
         return Parkour.getPlugin().getConfig().getInt("OnJoin.Item.HideAll.Slot", 1);
     }
 
-    public Material getLeaveTool() {
-        Material leaveTool = Utils.lookupMaterial(getConfig().getString("OnJoin.Item.Leave.Material"));
-        return leaveTool == Material.AIR ? null : leaveTool;
+    public ItemStack getLeaveTool() {
+        return getTool("OnJoin.Item.Leave");
     }
 
     public int getLeaveToolSlot() {
         return Parkour.getPlugin().getConfig().getInt("OnJoin.Item.Leave.Slot", 2);
     }
 
-    public Material getRestartTool() {
-        Material restartTool = Utils.lookupMaterial(getConfig().getString("OnJoin.Item.Restart.Material"));
-        return restartTool == Material.AIR ? null : restartTool;
+    public ItemStack getRestartTool() {
+        return getTool("OnJoin.Item.Restart");
     }
 
     public int getRestartToolSlot() {

@@ -516,6 +516,53 @@ public class CourseMethods {
         player.sendMessage(Static.getParkourString() + "Creator of " + ChatColor.DARK_AQUA + args[1] + ChatColor.WHITE + " was set to " + ChatColor.AQUA + args[2]);
     }
 
+    public static void setOnDeathCommand(String[] args, Player player) {
+        if (!CourseMethods.exist(args[1])) {
+            player.sendMessage(Utils.getTranslation("Error.NoExist").replace("%COURSE%", args[1]));
+            return;
+        }
+
+        CourseInfo.setOnDeathCommand(args[1], Utils.combineArgsToString(args, 2));
+    }
+
+    public static void setOnAchieveCheckpointCommand(String[] args, Player player) {
+        if (!CourseMethods.exist(args[1])) {
+            player.sendMessage(Utils.getTranslation("Error.NoExist").replace("%COURSE%", args[1]));
+            return;
+        }
+
+        CourseInfo.setOnAchieveCheckpointCommand(args[1], Integer.parseInt(args[2]), Utils.combineArgsToString(args, 3));
+    }
+
+    public static void setOnFinishCommand(String[] args, Player player) {
+        if (!CourseMethods.exist(args[1])) {
+            player.sendMessage(Utils.getTranslation("Error.NoExist").replace("%COURSE%", args[1]));
+            return;
+        }
+
+        CourseInfo.setOnFinishCommand(args[1], Utils.combineArgsToString(args, 2));
+    }
+
+    public static void setOnJoinCommand(String[] args, Player player) {
+        if (!CourseMethods.exist(args[1])) {
+            player.sendMessage(Utils.getTranslation("Error.NoExist").replace("%COURSE%", args[1]));
+            return;
+        }
+
+        CourseInfo.setOnJoinCommand(args[1], Utils.combineArgsToString(args, 2));
+    }
+
+    public static void setOnLeaveCommand(String[] args, Player player) {
+        if (!CourseMethods.exist(args[1])) {
+            player.sendMessage(Utils.getTranslation("Error.NoExist").replace("%COURSE%", args[1]));
+            return;
+        }
+
+        CourseInfo.setOnLeaveCommand(args[1], Utils.combineArgsToString(args, 2));
+    }
+
+
+
     /**
      * Set MaxDeaths for Course.
      * Set the maximum amount of deaths a player can accumulate before failing the course.

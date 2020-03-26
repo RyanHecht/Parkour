@@ -10,11 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.connorlinfoot.bountifulapi.BountifulAPI;
 import me.A5H73Y.parkour.Parkour;
@@ -254,6 +250,22 @@ public final class Utils {
      */
     public static String colour(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
+    }
+
+
+    /**
+     * Combines all elements from startingIndex to args.length into one string
+     * @param args
+     * @param startingIndex
+     * @return the combined string
+     */
+    public static String combineArgsToString(String[] args, int startingIndex) {
+        StringBuilder sb = new StringBuilder();
+        for (String arg : Arrays.copyOfRange(args, startingIndex, args.length)) {
+            sb.append(arg);
+            sb.append(" ");
+        }
+        return sb.toString().trim();
     }
 
     /**
@@ -689,6 +701,15 @@ public final class Utils {
         return getItemStack(material, itemLabel, 1);
     }
 
+    public static ItemStack getItemStack(ItemStack item, String itemLabel) {
+        if (itemLabel != null) {
+            ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName(itemLabel);
+            item.setItemMeta(meta);
+        }
+        return item;
+    }
+
     public static ItemStack getItemStack(Material material, String itemLabel, Integer amount) {
         ItemStack item = new ItemStack(material, amount);
         if (itemLabel != null) {
@@ -854,6 +875,16 @@ public final class Utils {
         }
 
         return stack;
+    }
+
+    /**
+     * Return whether item1 and item2 have the same name and durability
+     * @param item1
+     * @param item2
+     * @return
+     */
+    public static boolean areSimilar(ItemStack item1, ItemStack item2) {
+        return item1.getType().equals(item2.getType()) && (item1.getData().getData()==item2.getData().getData());
     }
 
     /**

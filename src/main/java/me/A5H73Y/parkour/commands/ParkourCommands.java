@@ -110,7 +110,57 @@ public class ParkourCommands implements CommandExecutor {
 
             CourseMethods.setCreator(args, player);
 
-        } else if (args[0].equalsIgnoreCase("checkpoint")) {
+        } else if (args[0].equalsIgnoreCase("setondeathcommand")) {
+            if (!Utils.hasPermission(player, "Parkour.Admin")) {
+                return false;
+
+            } else if (!Utils.validateArgs(player, args, 3, Integer.MAX_VALUE)) {
+                return false;
+            }
+
+            CourseMethods.setOnDeathCommand(args, player);
+
+        } else if (args[0].equalsIgnoreCase("setonachievecheckpointcommand")) {
+            if (!Utils.hasPermission(player, "Parkour.Admin")) {
+                return false;
+
+            } else if (!Utils.validateArgs(player, args, 4, Integer.MAX_VALUE)) {
+                return false;
+            }
+
+            CourseMethods.setOnAchieveCheckpointCommand(args, player);
+
+        } else if (args[0].equalsIgnoreCase("setonfinishcommand")) {
+            if (!Utils.hasPermission(player, "Parkour.Admin")) {
+                return false;
+
+            } else if (!Utils.validateArgs(player, args, 3, Integer.MAX_VALUE)) {
+                return false;
+            }
+
+            CourseMethods.setOnFinishCommand(args, player);
+
+        } else if (args[0].equalsIgnoreCase("setonjoincommand")) {
+            if (!Utils.hasPermission(player, "Parkour.Admin")) {
+                return false;
+
+            } else if (!Utils.validateArgs(player, args, 3, Integer.MAX_VALUE)) {
+                return false;
+            }
+
+            CourseMethods.setOnJoinCommand(args, player);
+
+        } else if (args[0].equalsIgnoreCase("setonleavecommand")) {
+            if (!Utils.hasPermission(player, "Parkour.Admin")) {
+                return false;
+
+            } else if (!Utils.validateArgs(player, args, 3, Integer.MAX_VALUE)) {
+                return false;
+            }
+
+            CourseMethods.setOnLeaveCommand(args, player);
+
+        }   else if (args[0].equalsIgnoreCase("checkpoint")) {
             if (!PlayerInfo.hasSelected(player)) {
                 return false;
 

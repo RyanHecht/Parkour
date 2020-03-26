@@ -135,6 +135,52 @@ public class CourseInfo {
         return Parkour.getParkourConfig().getCourseData().getInt(courseName.toLowerCase() + ".Points");
     }
 
+    public static String getOnDeathCommand(String courseName) {
+        return Parkour.getParkourConfig().getCourseData().getString(courseName.toLowerCase() + ".onDeathCommand");
+    }
+
+    public static void setOnDeathCommand(String courseName, String command) {
+        Parkour.getParkourConfig().getCourseData().set(courseName.toLowerCase() + ".onDeathCommand", command);
+        Parkour.getParkourConfig().saveCourses();
+
+    }
+
+    public static String getOnAchieveCheckpointCommand(String courseName, int checkpoint) {
+        return Parkour.getParkourConfig().getCourseData().getString(courseName.toLowerCase() + ".onAchieveCheckpointCommand." + checkpoint);
+    }
+
+    public static void setOnAchieveCheckpointCommand(String courseName, int checkpoint, String command) {
+        Parkour.getParkourConfig().getCourseData().set(courseName.toLowerCase() + ".onAchieveCheckpointCommand." + checkpoint, command);
+        Parkour.getParkourConfig().saveCourses();
+    }
+
+    public static String getOnFinishCommand(String courseName) {
+        return Parkour.getParkourConfig().getCourseData().getString(courseName.toLowerCase() + ".onFinishCommand");
+    }
+
+    public static void setOnFinishCommand(String courseName, String command) {
+        Parkour.getParkourConfig().getCourseData().set(courseName.toLowerCase() + ".onFinishCommand", command);
+        Parkour.getParkourConfig().saveCourses();
+    }
+
+    public static String getOnJoinCommand(String courseName) {
+        return Parkour.getParkourConfig().getCourseData().getString(courseName.toLowerCase() + ".onJoinCommand");
+    }
+
+    public static void setOnJoinCommand(String courseName, String command) {
+        Parkour.getParkourConfig().getCourseData().set(courseName.toLowerCase() + ".onJoinCommand", command);
+        Parkour.getParkourConfig().saveCourses();
+    }
+
+    public static String getOnLeaveCommand(String courseName) {
+        return Parkour.getParkourConfig().getCourseData().getString(courseName.toLowerCase() + ".onLeaveCommand");
+    }
+
+    public static void setOnLeaveCommand(String courseName, String command) {
+        Parkour.getParkourConfig().getCourseData().set(courseName.toLowerCase() + ".onLeaveCommand", command);
+        Parkour.getParkourConfig().saveCourses();
+    }
+
     /**
      * Get creator of course
      *
